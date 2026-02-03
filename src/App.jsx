@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import lovesvg from "./assets/All You Need Is Love SVG Cut File.svg";
 import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
-import herPhoto from './assets/sushi.jpeg';
-import romanticMusic from "./assets/romantic.mp3";
+import herPhoto from './assets/chingi.jpeg';
+import romanticMusic from "./assets/munji.mp3";
 
 export default function Page() {
+  const [noPosition, setNoPosition] = useState({ top: "50%", left: "50%" });
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
     useEffect(() => {
@@ -22,10 +23,6 @@ export default function Page() {
     }, [yesPressed]);
 
   const yesButtonSize = noCount * 20 + 16;
-
-  const handleNoClick = () => {
-    setNoCount(noCount + 1);
-  };
 
   const getNoButtonText = () => {
     const phrases = [
@@ -52,9 +49,20 @@ export default function Page() {
 
     return phrases[Math.min(noCount, phrases.length - 1)];
   };
+    const moveNoButton = () => {
+        const top = Math.random() * 80 + 10;   // 10% – 90%
+        const left = Math.random() * 80 + 10;  // 10% – 90%
+
+        setNoPosition({
+            top: `${top}%`,
+            left: `${left}%`,
+        });
+
+        setNoCount(noCount + 1);
+    };
 
   return (
-    <div className="overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
+      <div className="relative overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
       {yesPressed ? (
         <>
           <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
@@ -82,7 +90,7 @@ export default function Page() {
             src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.webp"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center">
-            Will you be my Valentine? Sushi
+            Will you be my Valentine? chingi Darling
           </h1>
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <button
@@ -93,10 +101,17 @@ export default function Page() {
               Yes
             </button>
             <button
-              onClick={handleNoClick}
-              className=" bg-rose-500 hover:bg-rose-600 rounded-lg text-white font-bold py-2 px-4"
+                onMouseEnter={moveNoButton}
+                onTouchStart={moveNoButton}
+                style={{
+                    position: "absolute",
+                    top: noPosition.top,
+                    left: noPosition.left,
+                    transform: "translate(-50%, -50%)",
+                }}
+                className="bg-rose-500 hover:bg-rose-600 rounded-lg text-white font-bold py-2 px-4 transition-all duration-300"
             >
-              {noCount === 0 ? "No" : getNoButtonText()}
+                {getNoButtonText()}
             </button>
           </div>
         </>

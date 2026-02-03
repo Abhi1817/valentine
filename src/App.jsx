@@ -1,10 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import lovesvg from "./assets/All You Need Is Love SVG Cut File.svg";
 import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
+import herPhoto from './assets/sushi.jpeg';
+import romanticMusic from "./assets/romantic.mp3";
 
 export default function Page() {
   const [noCount, setNoCount] = useState(0);
   const [yesPressed, setYesPressed] = useState(false);
+    useEffect(() => {
+        if (yesPressed) {
+            const audio = new Audio(romanticMusic);
+            audio.loop = true;
+            audio.volume = 0.4;
+            audio.play();
+
+            return () => {
+                audio.pause();
+                audio.currentTime = 0;
+            };
+        }
+    }, [yesPressed]);
+
   const yesButtonSize = noCount * 20 + 16;
 
   const handleNoClick = () => {
@@ -58,10 +74,15 @@ export default function Page() {
           />
           <img
             className="h-[230px] rounded-lg shadow-lg"
+            src={herPhoto}
+            alt="Sushi ❤️"
+          />
+          <img
+            className="h-[230px] rounded-lg shadow-lg"
             src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.webp"
           />
           <h1 className="text-4xl md:text-6xl my-4 text-center">
-            Will you be my Valentine?
+            Will you be my Valentine? Sushi
           </h1>
           <div className="flex flex-wrap justify-center gap-2 items-center">
             <button

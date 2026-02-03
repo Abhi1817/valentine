@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import lovesvg from "./assets/All You Need Is Love SVG Cut File.svg";
 import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
-import herPhoto from "./assets/kavu.jpeg";
+import herPhoto from "./assets/chingi.jpeg";
 import romanticMusic from "./assets/munji.mp3";
 
 export default function App() {
@@ -67,7 +67,7 @@ export default function App() {
 
                     <img className="h-[230px] rounded-lg shadow-lg" src={herPhoto} />
                     <h1 className="text-4xl md:text-6xl my-4 text-center">
-                        Will you be my Valentine? kanzuu Darling
+                        Will you be my Valentine? chingi Darling
                     </h1>
 
                     {showNiceTry && (

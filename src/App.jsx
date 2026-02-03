@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import lovesvg from "./assets/All You Need Is Love SVG Cut File.svg";
 import lovesvg2 from "./assets/Love In The Air SVG Cut File.svg";
-import herPhoto from './assets/chingi.jpeg';
+import herPhoto from "./assets/kavu.jpeg";
 import romanticMusic from "./assets/munji.mp3";
 
-export default function Page() {
-  const [noPosition, setNoPosition] = useState({ top: "50%", left: "50%" });
-  const [noCount, setNoCount] = useState(0);
-  const [yesPressed, setYesPressed] = useState(false);
+export default function App() {
+    const [noCount, setNoCount] = useState(0);
+    const [yesPressed, setYesPressed] = useState(false);
+    const [noEscaped, setNoEscaped] = useState(false);
+    const [noPosition, setNoPosition] = useState({ top: "50%", left: "50%" });
+    const [showNiceTry, setShowNiceTry] = useState(false);
+
     useEffect(() => {
         if (yesPressed) {
             const audio = new Audio(romanticMusic);
@@ -22,116 +25,86 @@ export default function Page() {
         }
     }, [yesPressed]);
 
-  const yesButtonSize = noCount * 20 + 16;
+    const yesButtonSize = noCount * 20 + 16;
 
-  const getNoButtonText = () => {
-    const phrases = [
-      "No",
-      "Are you sure?",
-      "Really sure?",
-      "Think again!",
-      "Last chance!",
-      "Surely not?",
-      "You might regret this!",
-      "Give it another thought!",
-      "Are you absolutely certain?",
-      "This could be a mistake!",
-      "Have a heart!",
-      "Don't be so cold!",
-      "Change of heart?",
-      "Wouldn't you reconsider?",
-      "Is that your final answer?",
-      "You're breaking my heart ;(",
-      "Is that your final answer?",
-      "You're breaking my heart ;(",
-      "Plsss? :( You're breaking my heart",
-    ];
-
-    return phrases[Math.min(noCount, phrases.length - 1)];
-  };
     const moveNoButton = () => {
-        const top = Math.random() * 80 + 10;   // 10% – 90%
-        const left = Math.random() * 80 + 10;  // 10% – 90%
+        const top = Math.random() * 70 + 10;
+        const left = Math.random() * 70 + 10;
 
-        setNoPosition({
-            top: `${top}%`,
-            left: `${left}%`,
-        });
-
+        setNoEscaped(true);
+        setNoPosition({ top: `${top}%`, left: `${left}%` });
         setNoCount(noCount + 1);
+
+        setShowNiceTry(true);
+        setTimeout(() => setShowNiceTry(false), 1200);
     };
 
-  return (
-      <div className="relative overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 selection:bg-rose-600 selection:text-white text-zinc-900">
-      {yesPressed ? (
-        <>
-          <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
-          <div className="text-4xl md:text-6xl font-bold my-4">
-            Ok Yayyyyy!!!
-          </div>
-        </>
-      ) : (
-        <>
-          <img
-            src={lovesvg}
-            className="fixed animate-pulse top-10 md:left-24 left-6 md:w-40 w-28"
-          />
-          <img
-            src={lovesvg2}
-            className="fixed bottom-16 -z-10 animate-pulse md:right-24 right-10 md:w-40 w-32"
-          />
-          <img
-            className="h-[230px] rounded-lg shadow-lg"
-            src={herPhoto}
-            alt="Sushi ❤️"
-          />
-          <img
-            className="h-[230px] rounded-lg shadow-lg"
-            src="https://gifdb.com/images/high/cute-love-bear-roses-ou7zho5oosxnpo6k.webp"
-          />
-          <h1 className="text-4xl md:text-6xl my-4 text-center">
-            Will you be my Valentine? chingi Darling
-          </h1>
-          <div className="flex flex-wrap justify-center gap-2 items-center">
-            <button
-              className={`bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg mr-4`}
-              style={{ fontSize: yesButtonSize }}
-              onClick={() => setYesPressed(true)}
-            >
-              Yes
-            </button>
-            <button
-                onMouseEnter={moveNoButton}
-                onTouchStart={moveNoButton}
-                style={{
-                    position: "absolute",
-                    top: noPosition.top,
-                    left: noPosition.left,
-                    transform: "translate(-50%, -50%)",
-                }}
-                className="bg-rose-500 hover:bg-rose-600 rounded-lg text-white font-bold py-2 px-4 transition-all duration-300"
-            >
-                {getNoButtonText()}
-            </button>
-          </div>
-        </>
-      )}
-      <Footer />
-    </div>
-  );
-}
+    const getNoButtonText = () => {
+        const phrases = [
+            "No",
+            "Are you sure?",
+            "Really sure?",
+            "Think again!",
+            "Last chance!",
+            "Plsss? 😜",
+        ];
+        return phrases[Math.min(noCount, phrases.length - 1)];
+    };
 
-const Footer = () => {
-  return (
-    <a
-      className="fixed bottom-2 right-2 backdrop-blur-md opacity-80 hover:opacity-95 border p-1 rounded border-rose-300"
-      href="https://github.com/Xeven777/valentine"
-      target="__blank"
-    >
-      Made with{" "}
-      <span role="img" aria-label="heart">
-        ❤️
-      </span>
-    </a>
-  );
-};
+    return (
+        <div className="relative overflow-hidden flex flex-col items-center justify-center pt-4 h-screen -mt-16 text-zinc-900">
+            {yesPressed ? (
+                <>
+                    <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" />
+                    <div className="text-4xl md:text-6xl font-bold my-4">
+                        Ok Yayyyyy!!! ❤️
+                    </div>
+                </>
+            ) : (
+                <>
+                    <img src={lovesvg} className="fixed animate-pulse top-10 left-6 w-28" />
+                    <img src={lovesvg2} className="fixed bottom-16 right-10 w-32" />
+
+                    <img className="h-[230px] rounded-lg shadow-lg" src={herPhoto} />
+                    <h1 className="text-4xl md:text-6xl my-4 text-center">
+                        Will you be my Valentine? kanzuu Darling
+                    </h1>
+
+                    {showNiceTry && (
+                        <div className="text-rose-600 font-semibold mb-2 animate-bounce">
+                            Nice try 😜
+                        </div>
+                    )}
+
+                    <div className="flex gap-4 mt-4">
+                    <button
+                        className="bg-green-500 text-white font-bold py-2 px-6 rounded-lg"
+                        style={{ fontSize: yesButtonSize }}
+                        onClick={() => setYesPressed(true)}
+                    >
+                        Yes
+                    </button>
+
+                    <button
+                        onMouseEnter={moveNoButton}
+                        onTouchStart={moveNoButton}
+                        style={
+                            noEscaped
+                                ? {
+                                    position: "absolute",
+                                    top: noPosition.top,
+                                    left: noPosition.left,
+                                }
+                                : {}
+                        }
+                                className="bg-rose-500 text-white font-bold py-2 px-6 rounded-lg transition-all duration-300">
+
+                        {getNoButtonText()}
+                    </button>
+
+                    </div>
+                </>
+            )}
+        </div>
+    );
+}
